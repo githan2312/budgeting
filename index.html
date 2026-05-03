@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Budget Bulanan • MEI 31 Hari</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f5f3ef;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 16px;
+      margin: 0;
+    }
+
+    .app-container {
+      max-width: 500px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 32px;
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.05), 0 8px 18px rgba(0, 0, 0, 0.03);
+      padding: 20px 18px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      border: 1px solid #f0eae0;
+    }
+
+    .header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #3b3a36;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header h1 span {
+      background: #f2e3c6;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 40px;
+      color: #5e4b32;
+      margin-left: 6px;
+    }
+
+    .total-card {
+      background: #e7dfd0;
+      border-radius: 24px;
+      padding: 18px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: linear-gradient(135deg, #f8f3e9 0%, #ede3d3 100%);
+      border: 1px solid #d6ccbc;
+    }
+
+    .total-label {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #4e4538;
+    }
+
+    .total-amount {
+      font-weight: 800;
+      font-size: 2rem;
+      color: #2a241a;
+      letter-spacing: -0.5px;
+    }
+
+    .category-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 4px;
+    }
+
+    .category {
+      background: #fbfaf7;
+      border-radius: 22px;
+      padding: 14px 14px 10px;
+      border: 1px solid #e8dfd2;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.02);
+    }
+
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: #3e3a31;
+      border-bottom: 1px dashed #d9ccb7;
+      padding-bottom: 6px;
+    }
+
+    .category-total {
+      font-weight: 700;
+      font-size: 1rem;
+      background: #fff;
+      padding: 4px 12px;
+      border-radius: 20px;
+      color: #6b5d48;
+      background: #f3efe7;
+    }
+
+    .item-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 260px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.95rem;
+      background: #ffffff;
+      padding: 8px 10px;
+      border-radius: 14px;
+      border: 1px solid #efe7da;
+      transition: background 0.15s;
+    }
+
+    .item-row:hover {
+      background: #faf7f2;
+    }
+
+    .item-name {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+      color: #4a4236;
+      flex: 2;
+    }
+
+    .item-calculation {
+      font-size: 0.75rem;
+      color: #8c8070;
+      margin-left: 4px;
+      font-weight: 400;
+    }
+
+    .item-price {
+      font-weight: 700;
+      color: #2e2b26;
+      margin-left: 8px;
+      text-align: right;
+      min-width: 70px;
+    }
+
+    .add-item-form {
+      display: flex;
+      margin-top: 12px;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .add-item-form input {
+      flex: 2;
+      min-width: 100px;
+      background: #fefdfb;
+      border: 1px solid #dbcfbc;
+      border-radius: 30px;
+      padding: 10px 14px;
+      font-size: 0.9rem;
+      outline: none;
+      background: #fff;
+    }
+
+    .add-item-form input:focus {
+      border-color: #b9a382;
+      box-shadow: 0 0 0 3px rgba(185, 163, 130, 0.2);
+    }
+
+    .btn {
+      background: #cfbea2;
+      border: none;
+      color: #2f2a21;
+      font-weight: 600;
+      padding: 10px 16px;
+      border-radius: 30px;
+      background: #e4d5bd;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: 0.2s;
+      border: 1px solid #c6b395;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      background: #dacaa9;
+      border-color: #af9b7b;
+    }
+
+    .delete-btn {
+      background: transparent;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #b8aa8f;
+      padding: 0 4px;
+      border-radius: 50%;
+      transition: 0.2s;
+      margin-left: 2px;
+      line-height: 1;
+    }
+
+    .delete-btn:hover {
+      color: #b15e4a;
+      background: #faeae4;
+    }
+
+    .reset-area {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 6px;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #cdbc9f;
+      color: #5f5340;
+    }
+
+    hr {
+      border: 0.5px solid #e5daca;
+      margin: 6px 0 4px;
+    }
+
+    .note {
+      font-size: 0.7rem;
+      color: #a4967c;
+      margin-top: 4px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div class="app-container">
+  <div class="header">
+    <h1>
+      📒 Budget MEI
+      <span>31 Hari</span>
+    </h1>
+  </div>
+
+  <!-- Total keseluruhan -->
+  <div class="total-card">
+    <span class="total-label">💰 Total Pengeluaran</span>
+    <span class="total-amount" id="grandTotalDisplay">Rp 0</span>
+  </div>
+
+  <div id="categoriesContainer" class="category-grid">
+    <!-- Kategori di-render lewat JavaScript -->
+  </div>
+
+  <div class="reset-area">
+    <button class="btn btn-outline" id="resetToDefaultBtn">↺ Kembali ke Data Awal</button>
+  </div>
+  <div class="note">
+    Ketuk ✕ untuk hapus item • Tambah item langsung di kategori
+  </div>
+</div>
+
+<script>
+  (function() {
+    // ----- DATA AWAL sesuai gambar (dalam Rupiah, angka sudah disesuaikan) -----
+    const initialCategories = [
+      {
+        name: "Dokok",
+        items: [
+          { name: "Benzin", price: 250000, note: "" },
+          { name: "Minyak", price: 80000, note: "" },
+          { name: "Beras", price: 100000, note: "" }
+        ]
+      },
+      {
+        name: "Keselamatan",
+        items: [
+          { name: "Telur (6 kg)", price: 200000, note: "" },
+          { name: "Pisang (10rb x4)", price: 40000, note: "" },
+          { name: "Hum (15rb/5rb x8)", price: 40000, note: "" },
+          { name: "Ayam 1 kg", price: 400000, note: "" },
+          { name: "Buah (10rb x8)", price: 80000, note: "" },
+          { name: "Ikan (10rb x9)", price: 90000, note: "" }
+        ]
+      },
+      {
+        name: "Acara Dadakan",
+        items: [
+          { name: "Buku/humbugan acara", price: 200000, note: "" }
+        ]
+      },
+      {
+        name: "Daily",
+        items: [
+          { name: "Tempe (35x12)", price: 36000, note: "420rb? sesuaikan" },
+          { name: "Sayur (50x12)", price: 60000, note: "" },
+          { name: "Kelapa (50x8)", price: 40000, note: "" },
+          { name: "Santan (30x4)", price: 12000, note: "" },
+          { name: "Pindang (10x9)", price: 90000, note: "" },
+          { name: "Tahu (45x16)", price: 64000, note: "Roma tombol" },
+          { name: "Tomat (50x9)", price: 20000, note: "" },
+          { name: "Kentang (85x9)", price: 32000, note: "85rb? disesuaikan" },
+          { name: "Ceker (5x9)", price: 20000, note: "" },
+          { name: "Kopi (10x8)", price: 80000, note: "" }
+        ]
+      },
+      {
+        name: "Ayan",
+        items: [
+          { name: "Mie ayam (20x9)", price: 40000, note: "180rb? cek" },
+          { name: "Tumyang (7x8)", price: 56000, note: "" },
+          { name: "Susu melutam (16x2)", price: 32000, note: "" },
+          { name: "Nasi goreng (11x4)", price: 44000, note: "" },
+          { name: "Parupir (20x9)", price: 180000, note: "" }
+        ]
+      }
+    ];
+
+    // State aplikasi
+    let categories = JSON.parse(JSON.stringify(initialCategories));
+
+    // Ambil elemen container
+    const container = document.getElementById('categoriesContainer');
+    const grandTotalDisplay = document.getElementById('grandTotalDisplay');
+
+    // Format Rupiah
+    function formatRupiah(angka) {
+      return 'Rp ' + Number(angka).toLocaleString('id-ID');
+    }
+
+    // Hitung total per kategori
+    function getCategoryTotal(items) {
+      return items.reduce((sum, item) => sum + (Number(item.price) || 0), 0);
+    }
+
+    // Hitung grand total
+    function calculateGrandTotal() {
+      return categories.reduce((total, cat) => total + getCategoryTotal(cat.items), 0);
+    }
+
+    // Update tampilan total
+    function updateGrandTotal() {
+      const total = calculateGrandTotal();
+      grandTotalDisplay.textContent = formatRupiah(total);
+    }
+
+    // Simpan state ke localStorage (opsional, supaya tetap setelah refresh)
+    function saveToLocalStorage() {
+      try {
+        localStorage.setItem('budget_mei_categories', JSON.stringify(categories));
+      } catch (e) {}
+    }
+
+    // Muat dari localStorage jika ada, kalau tidak pakai default
+    function loadFromStorage() {
+      try {
+        const stored = localStorage.getItem('budget_mei_categories');
+        if (stored) {
+          categories = JSON.parse(stored);
+        } else {
+          categories = JSON.parse(JSON.stringify(initialCategories));
+        }
+      } catch (e) {
+        categories = JSON.parse(JSON.stringify(initialCategories));
+      }
+    }
+
+    // Render semua kategori dan item
+    function renderCategories() {
+      if (!container) return;
+      container.innerHTML = '';
+
+      categories.forEach((category, categoryIndex) => {
+        const categoryDiv = document.createElement('div');
+        categoryDiv.className = 'category';
+
+        const totalCat = getCategoryTotal(category.items);
+
+        // Header kategori
+        const headerDiv = document.createElement('div');
+        headerDiv.className = 'category-header';
+        headerDiv.innerHTML = `
+          <span>📌 ${escapeHtml(category.name)}</span>
+          <span class="category-total">${formatRupiah(totalCat)}</span>
+        `;
+
+        // Daftar item
+        const itemListDiv = document.createElement('div');
+        itemListDiv.className = 'item-list';
+
+        category.items.forEach((item, itemIndex) => {
+          const itemRow = document.createElement('div');
+          itemRow.className = 'item-row';
+
+          // Nama + note kecil
+          const nameSpan = document.createElement('span');
+          nameSpan.className = 'item-name';
+          nameSpan.innerHTML = `${escapeHtml(item.name)}${item.note ? `<span class="item-calculation">${escapeHtml(item.note)}</span>` : ''}`;
+
+          // Harga
+          const priceSpan = document.createElement('span');
+          priceSpan.className = 'item-price';
+          priceSpan.textContent = formatRupiah(item.price);
+
+          // Tombol hapus
+          const deleteBtn = document.createElement('button');
+          deleteBtn.className = 'delete-btn';
+          deleteBtn.innerHTML = '✕';
+          deleteBtn.setAttribute('aria-label', 'Hapus item');
+          deleteBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            deleteItem(categoryIndex, itemIndex);
+          });
+
+          itemRow.appendChild(nameSpan);
+          itemRow.appendChild(priceSpan);
+          itemRow.appendChild(deleteBtn);
+          itemListDiv.appendChild(itemRow);
+        });
+
+        // Form tambah item kecil
+        const addForm = document.createElement('div');
+        addForm.className = 'add-item-form';
+        addForm.innerHTML = `
+          <input type="text" placeholder="Nama item" class="new-item-name" maxlength="40">
+          <input type="number" placeholder="Harga (Rp)" class="new-item-price" min="0" step="1" value="">
+          <button class="btn add-item-btn">+ Tambah</button>
+        `;
+
+        const nameInput = addForm.querySelector('.new-item-name');
+        const priceInput = addForm.querySelector('.new-item-price');
+        const addButton = addForm.querySelector('.add-item-btn');
+
+        addButton.addEventListener('click', () => {
+          const name = nameInput.value.trim();
+          const price = parseInt(priceInput.value, 10);
+          if (name === '' || isNaN(price) || price < 0) {
+            alert('Masukkan nama dan harga yang valid (angka >= 0)');
+            return;
+          }
+          addItemToCategory(categoryIndex, name, price);
+          nameInput.value = '';
+          priceInput.value = '';
+        });
+
+        // Izinkan enter di input harga
+        priceInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            addButton.click();
+          }
+        });
+        nameInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            priceInput.focus();
+          }
+        });
+
+        categoryDiv.appendChild(headerDiv);
+        categoryDiv.appendChild(itemListDiv);
+        categoryDiv.appendChild(addForm);
+        container.appendChild(categoryDiv);
+      });
+
+      updateGrandTotal();
+    }
+
+    // Escape HTML sederhana
+    function escapeHtml(text) {
+      return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // Tambah item ke kategori
+    function addItemToCategory(catIndex, name, price) {
+      if (!categories[catIndex]) return;
+      categories[catIndex].items.push({
+        name: name,
+        price: price,
+        note: ''
+      });
+      saveAndRender();
+    }
+
+    // Hapus item
+    function deleteItem(catIndex, itemIndex) {
+      if (!categories[catIndex]) return;
+      categories[catIndex].items.splice(itemIndex, 1);
+      saveAndRender();
+    }
+
+    // Reset ke data awal
+    function resetToDefault() {
+      categories = JSON.parse(JSON.stringify(initialCategories));
+      saveAndRender();
+    }
+
+    function saveAndRender() {
+      saveToLocalStorage();
+      renderCategories();
+    }
+
+    // Event listener tombol reset
+    document.getElementById('resetToDefaultBtn').addEventListener('click', () => {
+      if (confirm('Kembalikan semua item ke data awal? Perubahan akan hilang.')) {
+        resetToDefault();
+      }
+    });
+
+    // Inisialisasi
+    loadFromStorage();
+    renderCategories();
+    // Jika localStorage kosong pertama kali, pastikan render dengan default
+    if (!localStorage.getItem('budget_mei_categories')) {
+      saveToLocalStorage();
+    }
+  })();
+</script>
+</body>
+</html>
