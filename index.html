@@ -23,7 +23,7 @@
     }
 
     .app-container {
-      max-width: 550px;
+      max-width: 580px;
       width: 100%;
       background: #ffffff;
       border-radius: 32px;
@@ -62,7 +62,6 @@
       margin-left: 6px;
     }
 
-    /* Tab navigasi */
     .tab-nav {
       display: flex;
       gap: 8px;
@@ -103,132 +102,46 @@
       display: block;
     }
 
-    /* Monitoring section */
-    .monitoring-card {
-      background: linear-gradient(135deg, #f8f3e9 0%, #ede3d3 100%);
-      border-radius: 24px;
-      padding: 18px 16px;
-      border: 1px solid #d6ccbc;
-      margin-bottom: 12px;
-    }
-
-    .monitoring-header {
+    /* Summary cards */
+    .summary-row {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-
-    .monitoring-header h3 {
-      font-size: 1.2rem;
-      color: #3e3a31;
-    }
-
-    .budget-input-group {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      gap: 10px;
       flex-wrap: wrap;
     }
 
-    .budget-input-group label {
-      font-weight: 600;
-      color: #4e4538;
-      font-size: 0.9rem;
-    }
-
-    .budget-input-group input {
-      width: 140px;
-      padding: 10px 14px;
-      border: 1px solid #dbcfbc;
-      border-radius: 30px;
-      background: #fff;
-      font-size: 0.9rem;
-      outline: none;
-    }
-
-    .budget-input-group input:focus {
-      border-color: #b9a382;
-      box-shadow: 0 0 0 3px rgba(185, 163, 130, 0.2);
-    }
-
-    .btn-save-budget {
-      background: #cfbea2;
-      border: 1px solid #c6b395;
-      padding: 10px 16px;
-      border-radius: 30px;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 0.85rem;
-      transition: 0.2s;
-      white-space: nowrap;
-    }
-
-    .btn-save-budget:hover {
-      background: #dacaa9;
-    }
-
-    /* Progress bar */
-    .progress-container {
-      margin-top: 14px;
-    }
-
-    .progress-label {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.85rem;
-      color: #5e5340;
-      margin-bottom: 4px;
-      font-weight: 500;
-    }
-
-    .progress-bar-bg {
-      height: 14px;
-      background: #e5daca;
-      border-radius: 20px;
-      overflow: hidden;
-    }
-
-    .progress-bar-fill {
-      height: 100%;
-      background: #b3946e;
-      border-radius: 20px;
-      transition: width 0.4s ease, background 0.4s;
-      width: 0%;
-    }
-
-    .progress-bar-fill.warning {
-      background: #d4a853;
-    }
-
-    .progress-bar-fill.danger {
-      background: #c45a4a;
-    }
-
-    .total-card {
-      background: #e7dfd0;
-      border-radius: 24px;
-      padding: 18px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
+    .summary-card {
+      flex: 1;
+      min-width: 130px;
       background: linear-gradient(135deg, #f8f3e9 0%, #ede3d3 100%);
+      border-radius: 20px;
+      padding: 14px 16px;
       border: 1px solid #d6ccbc;
+      text-align: center;
     }
 
-    .total-label {
+    .summary-card .label {
+      font-size: 0.8rem;
       font-weight: 600;
-      font-size: 1.1rem;
-      color: #4e4538;
+      color: #6b5d48;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
     }
 
-    .total-amount {
+    .summary-card .value {
+      font-size: 1.5rem;
       font-weight: 800;
-      font-size: 2rem;
       color: #2a241a;
-      letter-spacing: -0.5px;
+      margin-top: 2px;
+    }
+
+    .summary-card.sisa {
+      background: linear-gradient(135deg, #e8f0e3 0%, #d4e4cc 100%);
+      border-color: #bccfb0;
+    }
+
+    .summary-card.terpakai {
+      background: linear-gradient(135deg, #fdf2ed 0%, #f5e0d5 100%);
+      border-color: #e0c9b8;
     }
 
     .category-grid {
@@ -251,21 +164,26 @@
       justify-content: space-between;
       align-items: center;
       font-weight: 700;
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       margin-bottom: 10px;
       color: #3e3a31;
       border-bottom: 1px dashed #d9ccb7;
       padding-bottom: 6px;
+      flex-wrap: wrap;
+      gap: 6px;
     }
 
-    .category-total {
-      font-weight: 700;
-      font-size: 1rem;
-      background: #fff;
-      padding: 4px 12px;
-      border-radius: 20px;
-      color: #6b5d48;
+    .category-summary {
+      display: flex;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .category-summary span {
       background: #f3efe7;
+      padding: 3px 10px;
+      border-radius: 16px;
     }
 
     .item-list {
@@ -281,12 +199,14 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       background: #ffffff;
       padding: 8px 10px;
       border-radius: 14px;
       border: 1px solid #efe7da;
       transition: background 0.15s;
+      flex-wrap: wrap;
+      gap: 4px;
     }
 
     .item-row:hover {
@@ -296,10 +216,11 @@
     .item-name {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       font-weight: 500;
       color: #4a4236;
       flex: 2;
+      min-width: 120px;
       cursor: pointer;
     }
 
@@ -308,31 +229,53 @@
     }
 
     .item-calculation {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: #8c8070;
-      margin-left: 4px;
+      margin-left: 2px;
       font-weight: 400;
     }
 
-    .item-price {
-      font-weight: 700;
-      color: #2e2b26;
-      margin-left: 8px;
+    .item-budget {
+      font-weight: 600;
+      color: #5e5340;
+      font-size: 0.8rem;
+      margin-left: auto;
+      margin-right: 6px;
+      white-space: nowrap;
+    }
+
+    .item-terpakai-input {
+      width: 90px;
+      padding: 6px 8px;
+      border: 1px solid #dbcfbc;
+      border-radius: 20px;
+      font-size: 0.8rem;
       text-align: right;
-      min-width: 70px;
+      background: #fefdfb;
+      outline: none;
+      margin: 0 4px;
+    }
+
+    .item-terpakai-input:focus {
+      border-color: #b9a382;
+      box-shadow: 0 0 0 2px rgba(185, 163, 130, 0.15);
+    }
+
+    .item-terpakai-input.over-budget {
+      border-color: #c45a4a;
+      background: #fff5f3;
     }
 
     .action-btns {
       display: flex;
       align-items: center;
-      gap: 4px;
-      margin-left: 4px;
+      gap: 2px;
     }
 
     .edit-btn, .delete-btn {
       background: transparent;
       border: none;
-      font-size: 1.1rem;
+      font-size: 1rem;
       cursor: pointer;
       padding: 4px 6px;
       border-radius: 50%;
@@ -428,7 +371,7 @@
       text-align: center;
     }
 
-    /* Modal overlay */
+    /* Modal */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -482,6 +425,73 @@
       background: #e5daca;
       border: 1px solid #cdbc9f;
     }
+
+    /* Monitoring table */
+    .monitoring-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin-top: 8px;
+    }
+
+    .monitoring-table th {
+      background: #f3efe7;
+      padding: 10px 8px;
+      text-align: left;
+      font-weight: 700;
+      color: #4e4538;
+      border-bottom: 2px solid #d6ccbc;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .monitoring-table td {
+      padding: 10px 8px;
+      border-bottom: 1px solid #efe7da;
+      color: #3e3a31;
+    }
+
+    .monitoring-table .text-right {
+      text-align: right;
+    }
+
+    .monitoring-table .text-center {
+      text-align: center;
+    }
+
+    .badge {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.75rem;
+    }
+
+    .badge-aman {
+      background: #d4e4cc;
+      color: #4a6b3a;
+    }
+
+    .badge-warning {
+      background: #fdf0d5;
+      color: #8a6d2b;
+    }
+
+    .badge-danger {
+      background: #fae4df;
+      color: #a84433;
+    }
+
+    .monitoring-category-header {
+      background: #fbfaf7;
+      font-weight: 700;
+      color: #3e3a31;
+    }
+
+    .monitoring-category-header td {
+      padding: 12px 8px;
+      border-bottom: 1px solid #d6ccbc;
+    }
   </style>
 </head>
 <body>
@@ -501,9 +511,20 @@
 
   <!-- TAB: Catatan -->
   <div class="tab-content active" id="tab-catatan">
-    <div class="total-card">
-      <span class="total-label">💰 Total Pengeluaran</span>
-      <span class="total-amount" id="grandTotalDisplay">Rp 0</span>
+    <!-- Summary -->
+    <div class="summary-row">
+      <div class="summary-card">
+        <div class="label">💰 Total Budget</div>
+        <div class="value" id="totalBudgetDisplay">Rp 0</div>
+      </div>
+      <div class="summary-card terpakai">
+        <div class="label">💸 Sudah Terpakai</div>
+        <div class="value" id="totalTerpakaiDisplay">Rp 0</div>
+      </div>
+      <div class="summary-card sisa">
+        <div class="label">🏦 Sisa Budget</div>
+        <div class="value" id="totalSisaDisplay">Rp 0</div>
+      </div>
     </div>
 
     <div id="categoriesContainer" class="category-grid"></div>
@@ -511,38 +532,33 @@
     <div class="reset-area">
       <button class="btn btn-outline" id="resetToDefaultBtn">↺ Kembali ke Data Awal</button>
     </div>
+    <div class="note">
+      ✎ Klik nama item untuk edit • Input "Terpakai" langsung di catatan
+    </div>
   </div>
 
   <!-- TAB: Monitoring -->
   <div class="tab-content" id="tab-monitoring">
-    <div class="monitoring-card">
-      <div class="monitoring-header">
-        <h3>🎯 Target Budget Bulanan</h3>
+    <div class="summary-row" style="margin-bottom: 8px;">
+      <div class="summary-card">
+        <div class="label">💰 Total Budget</div>
+        <div class="value" id="monTotalBudget">Rp 0</div>
       </div>
-      <div class="budget-input-group">
-        <label for="targetBudgetInput">Total Budget:</label>
-        <input type="number" id="targetBudgetInput" placeholder="Masukkan budget" min="0" step="1000" value="">
-        <button class="btn-save-budget" id="saveTargetBudget">Simpan</button>
+      <div class="summary-card terpakai">
+        <div class="label">💸 Terpakai</div>
+        <div class="value" id="monTotalTerpakai">Rp 0</div>
       </div>
-      <div class="progress-container" id="progressContainer" style="display: none;">
-        <div class="progress-label">
-          <span>Terpakai: <strong id="terpakaiAmount">Rp 0</strong></span>
-          <span id="persentaseText">0%</span>
-        </div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" id="progressBarFill" style="width: 0%;"></div>
-        </div>
-        <div class="progress-label" style="margin-top: 8px;">
-          <span>Sisa: <strong id="sisaAmount">Rp 0</strong></span>
-          <span id="statusText"></span>
-        </div>
+      <div class="summary-card sisa">
+        <div class="label">🏦 Sisa</div>
+        <div class="value" id="monTotalSisa">Rp 0</div>
       </div>
     </div>
-    <p class="note" style="margin-top: 12px;">💡 Masukkan total budget bulanan untuk melihat progres pemakaian</p>
-  </div>
-
-  <div class="note">
-    ✎ Klik nama item untuk edit • ✕ untuk hapus
+    <div style="overflow-x: auto;">
+      <div id="monitoringTableContainer"></div>
+    </div>
+    <p class="note" style="margin-top: 12px;">
+      💡 Status: 🟢 Aman (≤80%) • 🟡 Hampir (81-99%) • 🔴 Over (≥100%)
+    </p>
   </div>
 </div>
 
@@ -552,8 +568,8 @@
     <h3>✏️ Edit Item</h3>
     <label style="font-weight: 600; font-size: 0.9rem; color: #4e4538;">Nama Item</label>
     <input type="text" id="editItemName" placeholder="Nama item" maxlength="40">
-    <label style="font-weight: 600; font-size: 0.9rem; color: #4e4538;">Harga (Rp)</label>
-    <input type="number" id="editItemPrice" placeholder="Harga" min="0" step="1">
+    <label style="font-weight: 600; font-size: 0.9rem; color: #4e4538;">Budget (Rp)</label>
+    <input type="number" id="editItemPrice" placeholder="Budget" min="0" step="1">
     <label style="font-weight: 600; font-size: 0.9rem; color: #4e4538;">Catatan (opsional)</label>
     <input type="text" id="editItemNote" placeholder="Misal: 10rb x8" maxlength="60">
     <div class="modal-actions">
@@ -565,118 +581,140 @@
 
 <script>
   (function() {
-    // ----- DATA AWAL -----
+    // ----- DATA AWAL (setiap item punya: name, price (budget), note, terpakai) -----
     const initialCategories = [
       {
         name: "Dokok",
         items: [
-          { name: "Benzin", price: 250000, note: "" },
-          { name: "Minyak", price: 80000, note: "" },
-          { name: "Beras", price: 100000, note: "" }
+          { name: "Benzin", price: 250000, note: "", terpakai: 0 },
+          { name: "Minyak", price: 80000, note: "", terpakai: 0 },
+          { name: "Beras", price: 100000, note: "", terpakai: 0 }
         ]
       },
       {
         name: "Keselamatan",
         items: [
-          { name: "Telur (6 kg)", price: 200000, note: "" },
-          { name: "Pisang (10rb x4)", price: 40000, note: "" },
-          { name: "Hum (15rb/5rb x8)", price: 40000, note: "" },
-          { name: "Ayam 1 kg", price: 400000, note: "" },
-          { name: "Buah (10rb x8)", price: 80000, note: "" },
-          { name: "Ikan (10rb x9)", price: 90000, note: "" }
+          { name: "Telur (6 kg)", price: 200000, note: "", terpakai: 0 },
+          { name: "Pisang (10rb x4)", price: 40000, note: "", terpakai: 0 },
+          { name: "Hum (15rb/5rb x8)", price: 40000, note: "", terpakai: 0 },
+          { name: "Ayam 1 kg", price: 400000, note: "", terpakai: 0 },
+          { name: "Buah (10rb x8)", price: 80000, note: "", terpakai: 0 },
+          { name: "Ikan (10rb x9)", price: 90000, note: "", terpakai: 0 }
         ]
       },
       {
         name: "Acara Dadakan",
         items: [
-          { name: "Buku/humbugan acara", price: 200000, note: "" }
+          { name: "Buku/humbugan acara", price: 200000, note: "", terpakai: 0 }
         ]
       },
       {
         name: "Daily",
         items: [
-          { name: "Tempe (35x12)", price: 36000, note: "" },
-          { name: "Sayur (50x12)", price: 60000, note: "" },
-          { name: "Kelapa (50x8)", price: 40000, note: "" },
-          { name: "Santan (30x4)", price: 12000, note: "" },
-          { name: "Pindang (10x9)", price: 90000, note: "" },
-          { name: "Tahu (45x16)", price: 64000, note: "" },
-          { name: "Tomat (50x9)", price: 20000, note: "" },
-          { name: "Kentang (85x9)", price: 32000, note: "" },
-          { name: "Ceker (5x9)", price: 20000, note: "" },
-          { name: "Kopi (10x8)", price: 80000, note: "" }
+          { name: "Tempe (35x12)", price: 36000, note: "", terpakai: 0 },
+          { name: "Sayur (50x12)", price: 60000, note: "", terpakai: 0 },
+          { name: "Kelapa (50x8)", price: 40000, note: "", terpakai: 0 },
+          { name: "Santan (30x4)", price: 12000, note: "", terpakai: 0 },
+          { name: "Pindang (10x9)", price: 90000, note: "", terpakai: 0 },
+          { name: "Tahu (45x16)", price: 64000, note: "", terpakai: 0 },
+          { name: "Tomat (50x9)", price: 20000, note: "", terpakai: 0 },
+          { name: "Kentang (85x9)", price: 32000, note: "", terpakai: 0 },
+          { name: "Ceker (5x9)", price: 20000, note: "", terpakai: 0 },
+          { name: "Kopi (10x8)", price: 80000, note: "", terpakai: 0 }
         ]
       },
       {
         name: "Ayan",
         items: [
-          { name: "Mie ayam (20x9)", price: 40000, note: "" },
-          { name: "Tumyang (7x8)", price: 56000, note: "" },
-          { name: "Susu melutam (16x2)", price: 32000, note: "" },
-          { name: "Nasi goreng (11x4)", price: 44000, note: "" },
-          { name: "Parupir (20x9)", price: 180000, note: "" }
+          { name: "Mie ayam (20x9)", price: 40000, note: "", terpakai: 0 },
+          { name: "Tumyang (7x8)", price: 56000, note: "", terpakai: 0 },
+          { name: "Susu melutam (16x2)", price: 32000, note: "", terpakai: 0 },
+          { name: "Nasi goreng (11x4)", price: 44000, note: "", terpakai: 0 },
+          { name: "Parupir (20x9)", price: 180000, note: "", terpakai: 0 }
         ]
       }
     ];
 
     let categories = JSON.parse(JSON.stringify(initialCategories));
-    let targetBudget = 0;
 
-    // DOM elements
+    // DOM
     const container = document.getElementById('categoriesContainer');
-    const grandTotalDisplay = document.getElementById('grandTotalDisplay');
     const editModal = document.getElementById('editModal');
     const editItemName = document.getElementById('editItemName');
     const editItemPrice = document.getElementById('editItemPrice');
     const editItemNote = document.getElementById('editItemNote');
-    const targetBudgetInput = document.getElementById('targetBudgetInput');
-    const progressContainer = document.getElementById('progressContainer');
+    const monitoringTableContainer = document.getElementById('monitoringTableContainer');
 
     let currentEditCatIndex = null;
     let currentEditItemIndex = null;
 
-    // Format Rupiah
+    // ----- HELPERS -----
     function formatRupiah(angka) {
       return 'Rp ' + Number(angka).toLocaleString('id-ID');
     }
 
-    function getCategoryTotal(items) {
+    function getCategoryBudget(items) {
       return items.reduce((sum, item) => sum + (Number(item.price) || 0), 0);
     }
 
-    function calculateGrandTotal() {
-      return categories.reduce((total, cat) => total + getCategoryTotal(cat.items), 0);
+    function getCategoryTerpakai(items) {
+      return items.reduce((sum, item) => sum + (Number(item.terpakai) || 0), 0);
     }
 
-    function updateGrandTotal() {
-      const total = calculateGrandTotal();
-      grandTotalDisplay.textContent = formatRupiah(total);
-      updateMonitoringDisplay();
+    function getTotalBudget() {
+      return categories.reduce((sum, cat) => sum + getCategoryBudget(cat.items), 0);
+    }
+
+    function getTotalTerpakai() {
+      return categories.reduce((sum, cat) => sum + getCategoryTerpakai(cat.items), 0);
+    }
+
+    function getTotalSisa() {
+      return getTotalBudget() - getTotalTerpakai();
+    }
+
+    function escapeHtml(text) {
+      return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
     }
 
     // ----- STORAGE -----
     function saveToLocalStorage() {
       try {
-        const data = { categories, targetBudget };
-        localStorage.setItem('budget_mei_data', JSON.stringify(data));
+        localStorage.setItem('budget_mei_data_v2', JSON.stringify(categories));
       } catch (e) {}
     }
 
     function loadFromStorage() {
       try {
-        const stored = localStorage.getItem('budget_mei_data');
+        const stored = localStorage.getItem('budget_mei_data_v2');
         if (stored) {
-          const data = JSON.parse(stored);
-          categories = data.categories || JSON.parse(JSON.stringify(initialCategories));
-          targetBudget = data.targetBudget || 0;
+          categories = JSON.parse(stored);
         } else {
           categories = JSON.parse(JSON.stringify(initialCategories));
-          targetBudget = 0;
         }
       } catch (e) {
         categories = JSON.parse(JSON.stringify(initialCategories));
-        targetBudget = 0;
       }
+    }
+
+    // ----- UPDATE SUMMARY -----
+    function updateSummaries() {
+      const totalBudget = getTotalBudget();
+      const totalTerpakai = getTotalTerpakai();
+      const totalSisa = totalBudget - totalTerpakai;
+
+      document.getElementById('totalBudgetDisplay').textContent = formatRupiah(totalBudget);
+      document.getElementById('totalTerpakaiDisplay').textContent = formatRupiah(totalTerpakai);
+      document.getElementById('totalSisaDisplay').textContent = formatRupiah(totalSisa);
+
+      document.getElementById('monTotalBudget').textContent = formatRupiah(totalBudget);
+      document.getElementById('monTotalTerpakai').textContent = formatRupiah(totalTerpakai);
+      document.getElementById('monTotalSisa').textContent = formatRupiah(totalSisa);
     }
 
     // ----- RENDER CATATAN -----
@@ -687,13 +725,18 @@
       categories.forEach((category, categoryIndex) => {
         const categoryDiv = document.createElement('div');
         categoryDiv.className = 'category';
-        const totalCat = getCategoryTotal(category.items);
+
+        const catBudget = getCategoryBudget(category.items);
+        const catTerpakai = getCategoryTerpakai(category.items);
 
         const headerDiv = document.createElement('div');
         headerDiv.className = 'category-header';
         headerDiv.innerHTML = `
           <span>📌 ${escapeHtml(category.name)}</span>
-          <span class="category-total">${formatRupiah(totalCat)}</span>
+          <div class="category-summary">
+            <span>Budget: ${formatRupiah(catBudget)}</span>
+            <span>Terpakai: ${formatRupiah(catTerpakai)}</span>
+          </div>
         `;
 
         const itemListDiv = document.createElement('div');
@@ -703,16 +746,42 @@
           const itemRow = document.createElement('div');
           itemRow.className = 'item-row';
 
+          // Nama item (bisa diklik untuk edit)
           const nameSpan = document.createElement('span');
           nameSpan.className = 'item-name';
           nameSpan.innerHTML = `${escapeHtml(item.name)}${item.note ? `<span class="item-calculation">${escapeHtml(item.note)}</span>` : ''}`;
           nameSpan.title = 'Klik untuk edit';
           nameSpan.addEventListener('click', () => openEditModal(categoryIndex, itemIndex));
 
-          const priceSpan = document.createElement('span');
-          priceSpan.className = 'item-price';
-          priceSpan.textContent = formatRupiah(item.price);
+          // Budget
+          const budgetSpan = document.createElement('span');
+          budgetSpan.className = 'item-budget';
+          budgetSpan.textContent = formatRupiah(item.price);
 
+          // Input terpakai
+          const terpakaiInput = document.createElement('input');
+          terpakaiInput.type = 'number';
+          terpakaiInput.className = 'item-terpakai-input';
+          terpakaiInput.value = item.terpakai || 0;
+          terpakaiInput.min = '0';
+          terpakaiInput.step = '1';
+          terpakaiInput.placeholder = 'Terpakai';
+          terpakaiInput.title = 'Uang yang sudah dikeluarkan';
+          if ((item.terpakai || 0) > item.price) {
+            terpakaiInput.classList.add('over-budget');
+          }
+
+          terpakaiInput.addEventListener('input', (e) => {
+            const val = parseInt(e.target.value, 10);
+            if (!isNaN(val) && val >= 0) {
+              categories[categoryIndex].items[itemIndex].terpakai = val;
+            } else if (e.target.value === '') {
+              categories[categoryIndex].items[itemIndex].terpakai = 0;
+            }
+            saveAndRender();
+          });
+
+          // Action buttons
           const actionDiv = document.createElement('div');
           actionDiv.className = 'action-btns';
 
@@ -737,16 +806,18 @@
           actionDiv.appendChild(editBtn);
           actionDiv.appendChild(deleteBtn);
           itemRow.appendChild(nameSpan);
-          itemRow.appendChild(priceSpan);
+          itemRow.appendChild(budgetSpan);
+          itemRow.appendChild(terpakaiInput);
           itemRow.appendChild(actionDiv);
           itemListDiv.appendChild(itemRow);
         });
 
+        // Form tambah
         const addForm = document.createElement('div');
         addForm.className = 'add-item-form';
         addForm.innerHTML = `
           <input type="text" placeholder="Nama item" class="new-item-name" maxlength="40">
-          <input type="number" placeholder="Harga (Rp)" class="new-item-price" min="0" step="1" value="">
+          <input type="number" placeholder="Budget (Rp)" class="new-item-price" min="0" step="1" value="">
           <button class="btn add-item-btn">+ Tambah</button>
         `;
 
@@ -758,12 +829,13 @@
           const name = nameInput.value.trim();
           const price = parseInt(priceInput.value, 10);
           if (name === '' || isNaN(price) || price < 0) {
-            alert('Masukkan nama dan harga yang valid (angka >= 0)');
+            alert('Masukkan nama dan budget yang valid (angka >= 0)');
             return;
           }
-          addItemToCategory(categoryIndex, name, price);
+          categories[categoryIndex].items.push({ name, price, note: '', terpakai: 0 });
           nameInput.value = '';
           priceInput.value = '';
+          saveAndRender();
         });
 
         priceInput.addEventListener('keypress', (e) => {
@@ -779,32 +851,61 @@
         container.appendChild(categoryDiv);
       });
 
-      updateGrandTotal();
+      updateSummaries();
+      renderMonitoringTable();
     }
 
-    function escapeHtml(text) {
-      return String(text)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
+    // ----- RENDER MONITORING TABLE -----
+    function renderMonitoringTable() {
+      if (!monitoringTableContainer) return;
+
+      let html = '<table class="monitoring-table"><thead><tr>';
+      html += '<th>Item</th><th class="text-right">Budget</th><th class="text-right">Terpakai</th><th class="text-right">Sisa</th><th class="text-center">Status</th>';
+      html += '</tr></thead><tbody>';
+
+      categories.forEach(category => {
+        const catBudget = getCategoryBudget(category.items);
+        const catTerpakai = getCategoryTerpakai(category.items);
+        const catSisa = catBudget - catTerpakai;
+        const catPersen = catBudget > 0 ? (catTerpakai / catBudget) * 100 : 0;
+        let catBadge = '';
+        if (catPersen >= 100) catBadge = '<span class="badge badge-danger">🔴 Over</span>';
+        else if (catPersen > 80) catBadge = '<span class="badge badge-warning">🟡 Hampir</span>';
+        else catBadge = '<span class="badge badge-aman">🟢 Aman</span>';
+
+        html += `<tr class="monitoring-category-header">`;
+        html += `<td colspan="5">📌 <strong>${escapeHtml(category.name)}</strong> &nbsp; ${catBadge} &nbsp; Budget: ${formatRupiah(catBudget)} | Terpakai: ${formatRupiah(catTerpakai)} | Sisa: ${formatRupiah(catSisa)}</td>`;
+        html += `</tr>`;
+
+        category.items.forEach(item => {
+          const sisa = item.price - (item.terpakai || 0);
+          const persen = item.price > 0 ? ((item.terpakai || 0) / item.price) * 100 : 0;
+          let badge = '';
+          if (persen >= 100) badge = '<span class="badge badge-danger">🔴 Over</span>';
+          else if (persen > 80) badge = '<span class="badge badge-warning">🟡 Hampir</span>';
+          else badge = '<span class="badge badge-aman">🟢 Aman</span>';
+
+          html += '<tr>';
+          html += `<td>${escapeHtml(item.name)}${item.note ? `<br><small style="color:#8c8070;">${escapeHtml(item.note)}</small>` : ''}</td>`;
+          html += `<td class="text-right">${formatRupiah(item.price)}</td>`;
+          html += `<td class="text-right">${formatRupiah(item.terpakai || 0)}</td>`;
+          html += `<td class="text-right">${formatRupiah(sisa)}</td>`;
+          html += `<td class="text-center">${badge}</td>`;
+          html += '</tr>';
+        });
+      });
+
+      html += '</tbody></table>';
+      monitoringTableContainer.innerHTML = html;
     }
 
-    // ----- CRUD OPERATIONS -----
-    function addItemToCategory(catIndex, name, price) {
-      if (!categories[catIndex]) return;
-      categories[catIndex].items.push({ name, price, note: '' });
-      saveAndRender();
-    }
-
+    // ----- CRUD & EDIT -----
     function deleteItem(catIndex, itemIndex) {
       if (!categories[catIndex]) return;
       categories[catIndex].items.splice(itemIndex, 1);
       saveAndRender();
     }
 
-    // ----- EDIT MODAL -----
     function openEditModal(catIndex, itemIndex) {
       const item = categories[catIndex].items[itemIndex];
       currentEditCatIndex = catIndex;
@@ -832,68 +933,23 @@
       const newPrice = parseInt(editItemPrice.value, 10);
       const newNote = editItemNote.value.trim();
       if (newName === '' || isNaN(newPrice) || newPrice < 0) {
-        alert('Nama dan harga harus valid');
+        alert('Nama dan budget harus valid');
         return;
       }
       categories[currentEditCatIndex].items[currentEditItemIndex].name = newName;
       categories[currentEditCatIndex].items[currentEditItemIndex].price = newPrice;
       categories[currentEditCatIndex].items[currentEditItemIndex].note = newNote;
+      // Pastikan terpakai tidak melebihi budget baru
+      if (categories[currentEditCatIndex].items[currentEditItemIndex].terpakai > newPrice) {
+        categories[currentEditCatIndex].items[currentEditItemIndex].terpakai = newPrice;
+      }
       closeEditModal();
-      saveAndRender();
-    });
-
-    // ----- MONITORING -----
-    function updateMonitoringDisplay() {
-      const totalTerpakai = calculateGrandTotal();
-      document.getElementById('terpakaiAmount').textContent = formatRupiah(totalTerpakai);
-
-      if (targetBudget > 0) {
-        progressContainer.style.display = 'block';
-        const persen = Math.min((totalTerpakai / targetBudget) * 100, 100);
-        const sisa = targetBudget - totalTerpakai;
-        document.getElementById('persentaseText').textContent = persen.toFixed(1) + '%';
-        document.getElementById('sisaAmount').textContent = formatRupiah(Math.max(sisa, 0));
-        
-        const progressBar = document.getElementById('progressBarFill');
-        progressBar.style.width = persen + '%';
-        progressBar.classList.remove('warning', 'danger');
-        
-        const statusText = document.getElementById('statusText');
-        if (persen >= 100) {
-          progressBar.classList.add('danger');
-          statusText.textContent = '⚠️ Melebihi budget!';
-          statusText.style.color = '#c45a4a';
-        } else if (persen >= 80) {
-          progressBar.classList.add('warning');
-          statusText.textContent = '⚡ Hampir habis';
-          statusText.style.color = '#d4a853';
-        } else {
-          statusText.textContent = '✅ Aman';
-          statusText.style.color = '#6b8c5c';
-        }
-      } else {
-        progressContainer.style.display = 'none';
-      }
-
-      // Update input field
-      if (targetBudget > 0) {
-        targetBudgetInput.value = targetBudget;
-      }
-    }
-
-    document.getElementById('saveTargetBudget').addEventListener('click', () => {
-      const val = parseInt(targetBudgetInput.value, 10);
-      if (isNaN(val) || val < 0) {
-        alert('Masukkan budget yang valid');
-        return;
-      }
-      targetBudget = val;
       saveAndRender();
     });
 
     // ----- RESET -----
     document.getElementById('resetToDefaultBtn').addEventListener('click', () => {
-      if (confirm('Kembalikan semua item ke data awal? Perubahan akan hilang.')) {
+      if (confirm('Kembalikan semua item ke data awal? Semua perubahan (termasuk "terpakai") akan hilang.')) {
         categories = JSON.parse(JSON.stringify(initialCategories));
         saveAndRender();
       }
@@ -913,7 +969,8 @@
           document.getElementById('tab-catatan').classList.add('active');
         } else if (targetTab === 'monitoring') {
           document.getElementById('tab-monitoring').classList.add('active');
-          updateMonitoringDisplay();
+          updateSummaries();
+          renderMonitoringTable();
         }
       });
     });
@@ -922,15 +979,14 @@
     function saveAndRender() {
       saveToLocalStorage();
       renderCategories();
-      updateMonitoringDisplay();
+      updateSummaries();
+      renderMonitoringTable();
     }
 
     loadFromStorage();
     renderCategories();
-    if (targetBudget > 0) {
-      targetBudgetInput.value = targetBudget;
-      updateMonitoringDisplay();
-    }
+    updateSummaries();
+    renderMonitoringTable();
   })();
 </script>
 </body>
