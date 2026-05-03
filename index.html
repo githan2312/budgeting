@@ -243,6 +243,14 @@
       white-space: nowrap;
     }
 
+    /* Group untuk input terpakai + tombol konfirmasi */
+    .terpakai-group {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      margin: 0 4px;
+    }
+
     .item-terpakai-input {
       width: 90px;
       padding: 6px 8px;
@@ -252,7 +260,6 @@
       text-align: right;
       background: #fefdfb;
       outline: none;
-      margin: 0 4px;
     }
 
     .item-terpakai-input:focus {
@@ -263,6 +270,42 @@
     .item-terpakai-input.over-budget {
       border-color: #c45a4a;
       background: #fff5f3;
+    }
+
+    .confirm-terpakai-btn {
+      background: #e4d5bd;
+      border: 1px solid #c6b395;
+      color: #2f2a21;
+      font-weight: 700;
+      font-size: 0.9rem;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s;
+      padding: 0;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .confirm-terpakai-btn:hover {
+      background: #dacaa9;
+      border-color: #af9b7b;
+    }
+
+    .confirm-terpakai-btn.saved {
+      background: #c5d8b7;
+      border-color: #9bb87f;
+      animation: popFlash 0.4s ease;
+    }
+
+    @keyframes popFlash {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
     }
 
     .action-btns {
@@ -529,7 +572,7 @@
       <button class="btn btn-outline" id="resetToDefaultBtn">↺ Kembali ke Data Awal</button>
     </div>
     <div class="note">
-      ✎ Klik nama item untuk edit • Input "Terpakai" langsung di catatan
+      ✎ Klik nama item untuk edit • Isi "Terpakai" lalu klik ✔ untuk konfirmasi
     </div>
   </div>
 
@@ -660,10 +703,6 @@
       return categories.reduce((sum, cat) => sum + getCategoryTerpakai(cat.items), 0);
     }
 
-    function getTotalSisa() {
-      return getTotalBudget() - getTotalTerpakai();
-    }
-
     function escapeHtml(text) {
       return String(text)
         .replace(/&/g, '&amp;')
@@ -675,13 +714,13 @@
 
     function saveToLocalStorage() {
       try {
-        localStorage.setItem('budget_mei_data_v2', JSON.stringify(categories));
+        localStorage.setItem('budget_mei_data_v3', JSON.stringify(categories));
       } catch (e) {}
     }
 
     function loadFromStorage() {
       try {
-        const stored = localStorage.getItem('budget_mei_data_v2');
+        const stored = localStorage.getItem('budget_mei_data_v3');
         if (stored) {
           categories = JSON.parse(stored);
         } else {
@@ -706,7 +745,7 @@
       document.getElementById('monTotalSisa').textContent = formatRupiah(totalSisa);
     }
 
-    function updateCategoryHeader(categoryDiv, categoryIndex) {
+    function updateCategoryHeaderDOM(categoryDiv, categoryIndex) {
       const category = categories[categoryIndex];
       const catBudget = getCategoryBudget(category.items);
       const catTerpakai = getCategoryTerpakai(category.items);
@@ -718,6 +757,33 @@
           <span>Terpakai: ${formatRupiah(catTerpakai)}</span>
         `;
       }
+    }
+
+    // Konfirmasi terpakai: update data lalu render ulang monitoring & summary saja (bukan full render catatan)
+    function confirmTerpakai(categoryIndex, itemIndex, value, confirmBtn) {
+      let val = parseInt(value, 10);
+      if (isNaN(val) || val < 0) {
+        val = 0;
+      }
+      categories[categoryIndex].items[itemIndex].terpakai = val;
+      
+      // Flash hijau pada tombol
+      confirmBtn.classList.add('saved');
+      setTimeout(() => {
+        confirmBtn.classList.remove('saved');
+      }, 500);
+      
+      // Update summary & monitoring saja (tidak render ulang catatan)
+      updateSummaries();
+      
+      // Update header kategori yang bersangkutan
+      const allCategories = container.querySelectorAll('.category');
+      if (allCategories[categoryIndex]) {
+        updateCategoryHeaderDOM(allCategories[categoryIndex], categoryIndex);
+      }
+      
+      renderMonitoringTable();
+      saveToLocalStorage();
     }
 
     function renderCategories() {
@@ -758,6 +824,10 @@
           budgetSpan.className = 'item-budget';
           budgetSpan.textContent = formatRupiah(item.price);
 
+          // Group: input + tombol konfirmasi
+          const terpakaiGroup = document.createElement('div');
+          terpakaiGroup.className = 'terpakai-group';
+
           const terpakaiInput = document.createElement('input');
           terpakaiInput.type = 'number';
           terpakaiInput.className = 'item-terpakai-input';
@@ -766,30 +836,42 @@
           terpakaiInput.step = '1';
           terpakaiInput.placeholder = 'Terpakai';
           terpakaiInput.title = 'Uang yang sudah dikeluarkan';
+          
+          // Tandai over-budget saat render awal
           if ((item.terpakai || 0) > item.price) {
             terpakaiInput.classList.add('over-budget');
           }
 
-          // ✅ REAL-TIME UPDATE
-          terpakaiInput.addEventListener('input', (e) => {
-            let val = parseInt(e.target.value, 10);
-            if (isNaN(val) || val < 0) {
-              val = 0;
-              e.target.value = 0;
-            }
-            categories[categoryIndex].items[itemIndex].terpakai = val;
-            
-            if (val > item.price) {
+          const confirmBtn = document.createElement('button');
+          confirmBtn.className = 'confirm-terpakai-btn';
+          confirmBtn.innerHTML = '✔';
+          confirmBtn.title = 'Konfirmasi terpakai';
+          confirmBtn.type = 'button';
+
+          // Event: klik tombol konfirmasi
+          confirmBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const inputVal = terpakaiInput.value;
+            // Update over-budget class
+            const numVal = parseInt(inputVal, 10) || 0;
+            if (numVal > item.price) {
               terpakaiInput.classList.add('over-budget');
             } else {
               terpakaiInput.classList.remove('over-budget');
             }
-            
-            updateSummaries();
-            updateCategoryHeader(categoryDiv, categoryIndex);
-            renderMonitoringTable();
-            saveToLocalStorage();
+            confirmTerpakai(categoryIndex, itemIndex, inputVal, confirmBtn);
           });
+
+          // Event: tekan Enter pada input
+          terpakaiInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              confirmBtn.click();
+            }
+          });
+
+          terpakaiGroup.appendChild(terpakaiInput);
+          terpakaiGroup.appendChild(confirmBtn);
 
           const actionDiv = document.createElement('div');
           actionDiv.className = 'action-btns';
@@ -816,7 +898,7 @@
           actionDiv.appendChild(deleteBtn);
           itemRow.appendChild(nameSpan);
           itemRow.appendChild(budgetSpan);
-          itemRow.appendChild(terpakaiInput);
+          itemRow.appendChild(terpakaiGroup);
           itemRow.appendChild(actionDiv);
           itemListDiv.appendChild(itemRow);
         });
@@ -843,7 +925,7 @@
           categories[categoryIndex].items.push({ name, price, note: '', terpakai: 0 });
           nameInput.value = '';
           priceInput.value = '';
-          saveAndRender();
+          saveAndFullRender();
         });
 
         priceInput.addEventListener('keypress', (e) => {
@@ -909,7 +991,7 @@
     function deleteItem(catIndex, itemIndex) {
       if (!categories[catIndex]) return;
       categories[catIndex].items.splice(itemIndex, 1);
-      saveAndRender();
+      saveAndFullRender();
     }
 
     function openEditModal(catIndex, itemIndex) {
@@ -949,13 +1031,13 @@
         categories[currentEditCatIndex].items[currentEditItemIndex].terpakai = newPrice;
       }
       closeEditModal();
-      saveAndRender();
+      saveAndFullRender();
     });
 
     document.getElementById('resetToDefaultBtn').addEventListener('click', () => {
       if (confirm('Kembalikan semua item ke data awal? Semua perubahan (termasuk "terpakai") akan hilang.')) {
         categories = JSON.parse(JSON.stringify(initialCategories));
-        saveAndRender();
+        saveAndFullRender();
       }
     });
 
@@ -978,7 +1060,8 @@
       });
     });
 
-    function saveAndRender() {
+    // Full render (untuk tambah item, hapus, edit, reset)
+    function saveAndFullRender() {
       saveToLocalStorage();
       renderCategories();
       updateSummaries();
