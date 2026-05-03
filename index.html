@@ -23,7 +23,7 @@
     }
 
     .app-container {
-      max-width: 500px;
+      max-width: 550px;
       width: 100%;
       background: #ffffff;
       border-radius: 32px;
@@ -60,6 +60,149 @@
       border-radius: 40px;
       color: #5e4b32;
       margin-left: 6px;
+    }
+
+    /* Tab navigasi */
+    .tab-nav {
+      display: flex;
+      gap: 8px;
+      background: #f0eae0;
+      padding: 6px;
+      border-radius: 30px;
+      margin-bottom: 2px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 10px 16px;
+      border: none;
+      background: transparent;
+      border-radius: 26px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      color: #6b5f4e;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active {
+      background: #ffffff;
+      color: #3b362b;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .tab-btn:hover:not(.active) {
+      background: rgba(255,255,255,0.5);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Monitoring section */
+    .monitoring-card {
+      background: linear-gradient(135deg, #f8f3e9 0%, #ede3d3 100%);
+      border-radius: 24px;
+      padding: 18px 16px;
+      border: 1px solid #d6ccbc;
+      margin-bottom: 12px;
+    }
+
+    .monitoring-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .monitoring-header h3 {
+      font-size: 1.2rem;
+      color: #3e3a31;
+    }
+
+    .budget-input-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .budget-input-group label {
+      font-weight: 600;
+      color: #4e4538;
+      font-size: 0.9rem;
+    }
+
+    .budget-input-group input {
+      width: 140px;
+      padding: 10px 14px;
+      border: 1px solid #dbcfbc;
+      border-radius: 30px;
+      background: #fff;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .budget-input-group input:focus {
+      border-color: #b9a382;
+      box-shadow: 0 0 0 3px rgba(185, 163, 130, 0.2);
+    }
+
+    .btn-save-budget {
+      background: #cfbea2;
+      border: 1px solid #c6b395;
+      padding: 10px 16px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-save-budget:hover {
+      background: #dacaa9;
+    }
+
+    /* Progress bar */
+    .progress-container {
+      margin-top: 14px;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: #5e5340;
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+
+    .progress-bar-bg {
+      height: 14px;
+      background: #e5daca;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: #b3946e;
+      border-radius: 20px;
+      transition: width 0.4s ease, background 0.4s;
+      width: 0%;
+    }
+
+    .progress-bar-fill.warning {
+      background: #d4a853;
+    }
+
+    .progress-bar-fill.danger {
+      background: #c45a4a;
     }
 
     .total-card {
@@ -129,7 +272,7 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
-      max-height: 260px;
+      max-height: 300px;
       overflow-y: auto;
       padding-right: 4px;
     }
@@ -157,6 +300,11 @@
       font-weight: 500;
       color: #4a4236;
       flex: 2;
+      cursor: pointer;
+    }
+
+    .item-name:hover {
+      color: #2a241a;
     }
 
     .item-calculation {
@@ -172,6 +320,42 @@
       margin-left: 8px;
       text-align: right;
       min-width: 70px;
+    }
+
+    .action-btns {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: 4px;
+    }
+
+    .edit-btn, .delete-btn {
+      background: transparent;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 4px 6px;
+      border-radius: 50%;
+      transition: 0.2s;
+      line-height: 1;
+    }
+
+    .edit-btn {
+      color: #b9a382;
+    }
+
+    .edit-btn:hover {
+      color: #8b744a;
+      background: #f5efe2;
+    }
+
+    .delete-btn {
+      color: #b8aa8f;
+    }
+
+    .delete-btn:hover {
+      color: #b15e4a;
+      background: #faeae4;
     }
 
     .add-item-form {
@@ -222,28 +406,13 @@
       border-color: #af9b7b;
     }
 
-    .delete-btn {
-      background: transparent;
-      border: none;
-      font-size: 1.2rem;
-      cursor: pointer;
-      color: #b8aa8f;
-      padding: 0 4px;
-      border-radius: 50%;
-      transition: 0.2s;
-      margin-left: 2px;
-      line-height: 1;
-    }
-
-    .delete-btn:hover {
-      color: #b15e4a;
-      background: #faeae4;
-    }
-
     .reset-area {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
+      align-items: center;
       margin-top: 6px;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
     .btn-outline {
@@ -252,16 +421,66 @@
       color: #5f5340;
     }
 
-    hr {
-      border: 0.5px solid #e5daca;
-      margin: 6px 0 4px;
-    }
-
     .note {
       font-size: 0.7rem;
       color: #a4967c;
       margin-top: 4px;
       text-align: center;
+    }
+
+    /* Modal overlay */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-box {
+      background: #fff;
+      border-radius: 24px;
+      padding: 24px 20px;
+      width: 90%;
+      max-width: 420px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .modal-box h3 {
+      margin-bottom: 16px;
+      color: #3b3a36;
+    }
+
+    .modal-box input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #dbcfbc;
+      border-radius: 30px;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .modal-box input:focus {
+      border-color: #b9a382;
+      box-shadow: 0 0 0 3px rgba(185, 163, 130, 0.2);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      margin-top: 8px;
+    }
+
+    .btn-cancel {
+      background: #e5daca;
+      border: 1px solid #cdbc9f;
     }
   </style>
 </head>
@@ -274,27 +493,79 @@
     </h1>
   </div>
 
-  <!-- Total keseluruhan -->
-  <div class="total-card">
-    <span class="total-label">💰 Total Pengeluaran</span>
-    <span class="total-amount" id="grandTotalDisplay">Rp 0</span>
+  <!-- Tab navigasi -->
+  <div class="tab-nav">
+    <button class="tab-btn active" data-tab="catatan">📝 Catatan</button>
+    <button class="tab-btn" data-tab="monitoring">📊 Monitoring</button>
   </div>
 
-  <div id="categoriesContainer" class="category-grid">
-    <!-- Kategori di-render lewat JavaScript -->
+  <!-- TAB: Catatan -->
+  <div class="tab-content active" id="tab-catatan">
+    <div class="total-card">
+      <span class="total-label">💰 Total Pengeluaran</span>
+      <span class="total-amount" id="grandTotalDisplay">Rp 0</span>
+    </div>
+
+    <div id="categoriesContainer" class="category-grid"></div>
+
+    <div class="reset-area">
+      <button class="btn btn-outline" id="resetToDefaultBtn">↺ Kembali ke Data Awal</button>
+    </div>
   </div>
 
-  <div class="reset-area">
-    <button class="btn btn-outline" id="resetToDefaultBtn">↺ Kembali ke Data Awal</button>
+  <!-- TAB: Monitoring -->
+  <div class="tab-content" id="tab-monitoring">
+    <div class="monitoring-card">
+      <div class="monitoring-header">
+        <h3>🎯 Target Budget Bulanan</h3>
+      </div>
+      <div class="budget-input-group">
+        <label for="targetBudgetInput">Total Budget:</label>
+        <input type="number" id="targetBudgetInput" placeholder="Masukkan budget" min="0" step="1000" value="">
+        <button class="btn-save-budget" id="saveTargetBudget">Simpan</button>
+      </div>
+      <div class="progress-container" id="progressContainer" style="display: none;">
+        <div class="progress-label">
+          <span>Terpakai: <strong id="terpakaiAmount">Rp 0</strong></span>
+          <span id="persentaseText">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progressBarFill" style="width: 0%;"></div>
+        </div>
+        <div class="progress-label" style="margin-top: 8px;">
+          <span>Sisa: <strong id="sisaAmount">Rp 0</strong></span>
+          <span id="statusText"></span>
+        </div>
+      </div>
+    </div>
+    <p class="note" style="margin-top: 12px;">💡 Masukkan total budget bulanan untuk melihat progres pemakaian</p>
   </div>
+
   <div class="note">
-    Ketuk ✕ untuk hapus item • Tambah item langsung di kategori
+    ✎ Klik nama item untuk edit • ✕ untuk hapus
+  </div>
+</div>
+
+<!-- Modal Edit -->
+<div class="modal-overlay" id="editModal" style="display: none;">
+  <div class="modal-box">
+    <h3>✏️ Edit Item</h3>
+    <label style="font-weight: 600; font-size: 0.9rem; color: #4e4538;">Nama Item</label>
+    <input type="text" id="editItemName" placeholder="Nama item" maxlength="40">
+    <label style="font-weight: 600; font-size: 0.9rem; color: #4e4538;">Harga (Rp)</label>
+    <input type="number" id="editItemPrice" placeholder="Harga" min="0" step="1">
+    <label style="font-weight: 600; font-size: 0.9rem; color: #4e4538;">Catatan (opsional)</label>
+    <input type="text" id="editItemNote" placeholder="Misal: 10rb x8" maxlength="60">
+    <div class="modal-actions">
+      <button class="btn btn-cancel" id="cancelEditBtn">Batal</button>
+      <button class="btn" id="saveEditBtn">💾 Simpan</button>
+    </div>
   </div>
 </div>
 
 <script>
   (function() {
-    // ----- DATA AWAL sesuai gambar (dalam Rupiah, angka sudah disesuaikan) -----
+    // ----- DATA AWAL -----
     const initialCategories = [
       {
         name: "Dokok",
@@ -324,14 +595,14 @@
       {
         name: "Daily",
         items: [
-          { name: "Tempe (35x12)", price: 36000, note: "420rb? sesuaikan" },
+          { name: "Tempe (35x12)", price: 36000, note: "" },
           { name: "Sayur (50x12)", price: 60000, note: "" },
           { name: "Kelapa (50x8)", price: 40000, note: "" },
           { name: "Santan (30x4)", price: 12000, note: "" },
           { name: "Pindang (10x9)", price: 90000, note: "" },
-          { name: "Tahu (45x16)", price: 64000, note: "Roma tombol" },
+          { name: "Tahu (45x16)", price: 64000, note: "" },
           { name: "Tomat (50x9)", price: 20000, note: "" },
-          { name: "Kentang (85x9)", price: 32000, note: "85rb? disesuaikan" },
+          { name: "Kentang (85x9)", price: 32000, note: "" },
           { name: "Ceker (5x9)", price: 20000, note: "" },
           { name: "Kopi (10x8)", price: 80000, note: "" }
         ]
@@ -339,7 +610,7 @@
       {
         name: "Ayan",
         items: [
-          { name: "Mie ayam (20x9)", price: 40000, note: "180rb? cek" },
+          { name: "Mie ayam (20x9)", price: 40000, note: "" },
           { name: "Tumyang (7x8)", price: 56000, note: "" },
           { name: "Susu melutam (16x2)", price: 32000, note: "" },
           { name: "Nasi goreng (11x4)", price: 44000, note: "" },
@@ -348,56 +619,67 @@
       }
     ];
 
-    // State aplikasi
     let categories = JSON.parse(JSON.stringify(initialCategories));
+    let targetBudget = 0;
 
-    // Ambil elemen container
+    // DOM elements
     const container = document.getElementById('categoriesContainer');
     const grandTotalDisplay = document.getElementById('grandTotalDisplay');
+    const editModal = document.getElementById('editModal');
+    const editItemName = document.getElementById('editItemName');
+    const editItemPrice = document.getElementById('editItemPrice');
+    const editItemNote = document.getElementById('editItemNote');
+    const targetBudgetInput = document.getElementById('targetBudgetInput');
+    const progressContainer = document.getElementById('progressContainer');
+
+    let currentEditCatIndex = null;
+    let currentEditItemIndex = null;
 
     // Format Rupiah
     function formatRupiah(angka) {
       return 'Rp ' + Number(angka).toLocaleString('id-ID');
     }
 
-    // Hitung total per kategori
     function getCategoryTotal(items) {
       return items.reduce((sum, item) => sum + (Number(item.price) || 0), 0);
     }
 
-    // Hitung grand total
     function calculateGrandTotal() {
       return categories.reduce((total, cat) => total + getCategoryTotal(cat.items), 0);
     }
 
-    // Update tampilan total
     function updateGrandTotal() {
       const total = calculateGrandTotal();
       grandTotalDisplay.textContent = formatRupiah(total);
+      updateMonitoringDisplay();
     }
 
-    // Simpan state ke localStorage (opsional, supaya tetap setelah refresh)
+    // ----- STORAGE -----
     function saveToLocalStorage() {
       try {
-        localStorage.setItem('budget_mei_categories', JSON.stringify(categories));
+        const data = { categories, targetBudget };
+        localStorage.setItem('budget_mei_data', JSON.stringify(data));
       } catch (e) {}
     }
 
-    // Muat dari localStorage jika ada, kalau tidak pakai default
     function loadFromStorage() {
       try {
-        const stored = localStorage.getItem('budget_mei_categories');
+        const stored = localStorage.getItem('budget_mei_data');
         if (stored) {
-          categories = JSON.parse(stored);
+          const data = JSON.parse(stored);
+          categories = data.categories || JSON.parse(JSON.stringify(initialCategories));
+          targetBudget = data.targetBudget || 0;
         } else {
           categories = JSON.parse(JSON.stringify(initialCategories));
+          targetBudget = 0;
         }
       } catch (e) {
         categories = JSON.parse(JSON.stringify(initialCategories));
+        targetBudget = 0;
       }
     }
 
-    // Render semua kategori dan item
+    // ----- RENDER CATATAN -----
     function renderCategories() {
       if (!container) return;
       container.innerHTML = '';
@@ -405,10 +687,8 @@
       categories.forEach((category, categoryIndex) => {
         const categoryDiv = document.createElement('div');
         categoryDiv.className = 'category';
-
         const totalCat = getCategoryTotal(category.items);
 
-        // Header kategori
         const headerDiv = document.createElement('div');
         headerDiv.className = 'category-header';
         headerDiv.innerHTML = `
@@ -416,7 +696,6 @@
           <span class="category-total">${formatRupiah(totalCat)}</span>
         `;
 
-        // Daftar item
         const itemListDiv = document.createElement('div');
         itemListDiv.className = 'item-list';
 
@@ -424,33 +703,45 @@
           const itemRow = document.createElement('div');
           itemRow.className = 'item-row';
 
-          // Nama + note kecil
           const nameSpan = document.createElement('span');
           nameSpan.className = 'item-name';
           nameSpan.innerHTML = `${escapeHtml(item.name)}${item.note ? `<span class="item-calculation">${escapeHtml(item.note)}</span>` : ''}`;
+          nameSpan.title = 'Klik untuk edit';
+          nameSpan.addEventListener('click', () => openEditModal(categoryIndex, itemIndex));
 
-          // Harga
           const priceSpan = document.createElement('span');
           priceSpan.className = 'item-price';
           priceSpan.textContent = formatRupiah(item.price);
 
-          // Tombol hapus
+          const actionDiv = document.createElement('div');
+          actionDiv.className = 'action-btns';
+
+          const editBtn = document.createElement('button');
+          editBtn.className = 'edit-btn';
+          editBtn.innerHTML = '✎';
+          editBtn.title = 'Edit item';
+          editBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openEditModal(categoryIndex, itemIndex);
+          });
+
           const deleteBtn = document.createElement('button');
           deleteBtn.className = 'delete-btn';
           deleteBtn.innerHTML = '✕';
-          deleteBtn.setAttribute('aria-label', 'Hapus item');
+          deleteBtn.title = 'Hapus item';
           deleteBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             deleteItem(categoryIndex, itemIndex);
           });
 
+          actionDiv.appendChild(editBtn);
+          actionDiv.appendChild(deleteBtn);
           itemRow.appendChild(nameSpan);
           itemRow.appendChild(priceSpan);
-          itemRow.appendChild(deleteBtn);
+          itemRow.appendChild(actionDiv);
           itemListDiv.appendChild(itemRow);
         });
 
-        // Form tambah item kecil
         const addForm = document.createElement('div');
         addForm.className = 'add-item-form';
         addForm.innerHTML = `
@@ -475,16 +766,11 @@
           priceInput.value = '';
         });
 
-        // Izinkan enter di input harga
         priceInput.addEventListener('keypress', (e) => {
-          if (e.key === 'Enter') {
-            addButton.click();
-          }
+          if (e.key === 'Enter') addButton.click();
         });
         nameInput.addEventListener('keypress', (e) => {
-          if (e.key === 'Enter') {
-            priceInput.focus();
-          }
+          if (e.key === 'Enter') priceInput.focus();
         });
 
         categoryDiv.appendChild(headerDiv);
@@ -496,7 +782,6 @@
       updateGrandTotal();
     }
 
-    // Escape HTML sederhana
     function escapeHtml(text) {
       return String(text)
         .replace(/&/g, '&amp;')
@@ -506,48 +791,145 @@
         .replace(/'/g, '&#039;');
     }
 
-    // Tambah item ke kategori
+    // ----- CRUD OPERATIONS -----
     function addItemToCategory(catIndex, name, price) {
       if (!categories[catIndex]) return;
-      categories[catIndex].items.push({
-        name: name,
-        price: price,
-        note: ''
-      });
+      categories[catIndex].items.push({ name, price, note: '' });
       saveAndRender();
     }
 
-    // Hapus item
     function deleteItem(catIndex, itemIndex) {
       if (!categories[catIndex]) return;
       categories[catIndex].items.splice(itemIndex, 1);
       saveAndRender();
     }
 
-    // Reset ke data awal
-    function resetToDefault() {
-      categories = JSON.parse(JSON.stringify(initialCategories));
+    // ----- EDIT MODAL -----
+    function openEditModal(catIndex, itemIndex) {
+      const item = categories[catIndex].items[itemIndex];
+      currentEditCatIndex = catIndex;
+      currentEditItemIndex = itemIndex;
+      editItemName.value = item.name;
+      editItemPrice.value = item.price;
+      editItemNote.value = item.note || '';
+      editModal.style.display = 'flex';
+    }
+
+    function closeEditModal() {
+      editModal.style.display = 'none';
+      currentEditCatIndex = null;
+      currentEditItemIndex = null;
+    }
+
+    document.getElementById('cancelEditBtn').addEventListener('click', closeEditModal);
+    editModal.addEventListener('click', (e) => {
+      if (e.target === editModal) closeEditModal();
+    });
+
+    document.getElementById('saveEditBtn').addEventListener('click', () => {
+      if (currentEditCatIndex === null || currentEditItemIndex === null) return;
+      const newName = editItemName.value.trim();
+      const newPrice = parseInt(editItemPrice.value, 10);
+      const newNote = editItemNote.value.trim();
+      if (newName === '' || isNaN(newPrice) || newPrice < 0) {
+        alert('Nama dan harga harus valid');
+        return;
+      }
+      categories[currentEditCatIndex].items[currentEditItemIndex].name = newName;
+      categories[currentEditCatIndex].items[currentEditItemIndex].price = newPrice;
+      categories[currentEditCatIndex].items[currentEditItemIndex].note = newNote;
+      closeEditModal();
       saveAndRender();
+    });
+
+    // ----- MONITORING -----
+    function updateMonitoringDisplay() {
+      const totalTerpakai = calculateGrandTotal();
+      document.getElementById('terpakaiAmount').textContent = formatRupiah(totalTerpakai);
+
+      if (targetBudget > 0) {
+        progressContainer.style.display = 'block';
+        const persen = Math.min((totalTerpakai / targetBudget) * 100, 100);
+        const sisa = targetBudget - totalTerpakai;
+        document.getElementById('persentaseText').textContent = persen.toFixed(1) + '%';
+        document.getElementById('sisaAmount').textContent = formatRupiah(Math.max(sisa, 0));
+        
+        const progressBar = document.getElementById('progressBarFill');
+        progressBar.style.width = persen + '%';
+        progressBar.classList.remove('warning', 'danger');
+        
+        const statusText = document.getElementById('statusText');
+        if (persen >= 100) {
+          progressBar.classList.add('danger');
+          statusText.textContent = '⚠️ Melebihi budget!';
+          statusText.style.color = '#c45a4a';
+        } else if (persen >= 80) {
+          progressBar.classList.add('warning');
+          statusText.textContent = '⚡ Hampir habis';
+          statusText.style.color = '#d4a853';
+        } else {
+          statusText.textContent = '✅ Aman';
+          statusText.style.color = '#6b8c5c';
+        }
+      } else {
+        progressContainer.style.display = 'none';
+      }
+
+      // Update input field
+      if (targetBudget > 0) {
+        targetBudgetInput.value = targetBudget;
+      }
     }
 
-    function saveAndRender() {
-      saveToLocalStorage();
-      renderCategories();
-    }
+    document.getElementById('saveTargetBudget').addEventListener('click', () => {
+      const val = parseInt(targetBudgetInput.value, 10);
+      if (isNaN(val) || val < 0) {
+        alert('Masukkan budget yang valid');
+        return;
+      }
+      targetBudget = val;
+      saveAndRender();
+    });
 
-    // Event listener tombol reset
+    // ----- RESET -----
     document.getElementById('resetToDefaultBtn').addEventListener('click', () => {
       if (confirm('Kembalikan semua item ke data awal? Perubahan akan hilang.')) {
-        resetToDefault();
+        categories = JSON.parse(JSON.stringify(initialCategories));
+        saveAndRender();
       }
     });
 
-    // Inisialisasi
+    // ----- TAB SWITCHING -----
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetTab = btn.getAttribute('data-tab');
+        tabButtons.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        if (targetTab === 'catatan') {
+          document.getElementById('tab-catatan').classList.add('active');
+        } else if (targetTab === 'monitoring') {
+          document.getElementById('tab-monitoring').classList.add('active');
+          updateMonitoringDisplay();
+        }
+      });
+    });
+
+    // ----- INIT -----
+    function saveAndRender() {
+      saveToLocalStorage();
+      renderCategories();
+      updateMonitoringDisplay();
+    }
+
     loadFromStorage();
     renderCategories();
-    // Jika localStorage kosong pertama kali, pastikan render dengan default
-    if (!localStorage.getItem('budget_mei_categories')) {
-      saveToLocalStorage();
+    if (targetBudget > 0) {
+      targetBudgetInput.value = targetBudget;
+      updateMonitoringDisplay();
     }
   })();
 </script>
