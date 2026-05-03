@@ -102,7 +102,6 @@
       display: block;
     }
 
-    /* Summary cards */
     .summary-row {
       display: flex;
       gap: 10px;
@@ -503,15 +502,12 @@
     </h1>
   </div>
 
-  <!-- Tab navigasi -->
   <div class="tab-nav">
     <button class="tab-btn active" data-tab="catatan">📝 Catatan</button>
     <button class="tab-btn" data-tab="monitoring">📊 Monitoring</button>
   </div>
 
-  <!-- TAB: Catatan -->
   <div class="tab-content active" id="tab-catatan">
-    <!-- Summary -->
     <div class="summary-row">
       <div class="summary-card">
         <div class="label">💰 Total Budget</div>
@@ -537,7 +533,6 @@
     </div>
   </div>
 
-  <!-- TAB: Monitoring -->
   <div class="tab-content" id="tab-monitoring">
     <div class="summary-row" style="margin-bottom: 8px;">
       <div class="summary-card">
@@ -562,7 +557,6 @@
   </div>
 </div>
 
-<!-- Modal Edit -->
 <div class="modal-overlay" id="editModal" style="display: none;">
   <div class="modal-box">
     <h3>✏️ Edit Item</h3>
@@ -581,7 +575,6 @@
 
 <script>
   (function() {
-    // ----- DATA AWAL (setiap item punya: name, price (budget), note, terpakai) -----
     const initialCategories = [
       {
         name: "Dokok",
@@ -637,7 +630,6 @@
 
     let categories = JSON.parse(JSON.stringify(initialCategories));
 
-    // DOM
     const container = document.getElementById('categoriesContainer');
     const editModal = document.getElementById('editModal');
     const editItemName = document.getElementById('editItemName');
@@ -648,7 +640,6 @@
     let currentEditCatIndex = null;
     let currentEditItemIndex = null;
 
-    // ----- HELPERS -----
     function formatRupiah(angka) {
       return 'Rp ' + Number(angka).toLocaleString('id-ID');
     }
@@ -682,7 +673,6 @@
         .replace(/'/g, '&#039;');
     }
 
-    // ----- STORAGE -----
     function saveToLocalStorage() {
       try {
         localStorage.setItem('budget_mei_data_v2', JSON.stringify(categories));
@@ -702,7 +692,6 @@
       }
     }
 
-    // ----- UPDATE SUMMARY -----
     function updateSummaries() {
       const totalBudget = getTotalBudget();
       const totalTerpakai = getTotalTerpakai();
@@ -717,7 +706,20 @@
       document.getElementById('monTotalSisa').textContent = formatRupiah(totalSisa);
     }
 
-    // ----- RENDER CATATAN -----
+    function updateCategoryHeader(categoryDiv, categoryIndex) {
+      const category = categories[categoryIndex];
+      const catBudget = getCategoryBudget(category.items);
+      const catTerpakai = getCategoryTerpakai(category.items);
+      
+      const summaryDiv = categoryDiv.querySelector('.category-summary');
+      if (summaryDiv) {
+        summaryDiv.innerHTML = `
+          <span>Budget: ${formatRupiah(catBudget)}</span>
+          <span>Terpakai: ${formatRupiah(catTerpakai)}</span>
+        `;
+      }
+    }
+
     function renderCategories() {
       if (!container) return;
       container.innerHTML = '';
@@ -746,19 +748,16 @@
           const itemRow = document.createElement('div');
           itemRow.className = 'item-row';
 
-          // Nama item (bisa diklik untuk edit)
           const nameSpan = document.createElement('span');
           nameSpan.className = 'item-name';
           nameSpan.innerHTML = `${escapeHtml(item.name)}${item.note ? `<span class="item-calculation">${escapeHtml(item.note)}</span>` : ''}`;
           nameSpan.title = 'Klik untuk edit';
           nameSpan.addEventListener('click', () => openEditModal(categoryIndex, itemIndex));
 
-          // Budget
           const budgetSpan = document.createElement('span');
           budgetSpan.className = 'item-budget';
           budgetSpan.textContent = formatRupiah(item.price);
 
-          // Input terpakai
           const terpakaiInput = document.createElement('input');
           terpakaiInput.type = 'number';
           terpakaiInput.className = 'item-terpakai-input';
@@ -771,17 +770,27 @@
             terpakaiInput.classList.add('over-budget');
           }
 
+          // ✅ REAL-TIME UPDATE
           terpakaiInput.addEventListener('input', (e) => {
-            const val = parseInt(e.target.value, 10);
-            if (!isNaN(val) && val >= 0) {
-              categories[categoryIndex].items[itemIndex].terpakai = val;
-            } else if (e.target.value === '') {
-              categories[categoryIndex].items[itemIndex].terpakai = 0;
+            let val = parseInt(e.target.value, 10);
+            if (isNaN(val) || val < 0) {
+              val = 0;
+              e.target.value = 0;
             }
-            saveAndRender();
+            categories[categoryIndex].items[itemIndex].terpakai = val;
+            
+            if (val > item.price) {
+              terpakaiInput.classList.add('over-budget');
+            } else {
+              terpakaiInput.classList.remove('over-budget');
+            }
+            
+            updateSummaries();
+            updateCategoryHeader(categoryDiv, categoryIndex);
+            renderMonitoringTable();
+            saveToLocalStorage();
           });
 
-          // Action buttons
           const actionDiv = document.createElement('div');
           actionDiv.className = 'action-btns';
 
@@ -812,7 +821,6 @@
           itemListDiv.appendChild(itemRow);
         });
 
-        // Form tambah
         const addForm = document.createElement('div');
         addForm.className = 'add-item-form';
         addForm.innerHTML = `
@@ -855,7 +863,6 @@
       renderMonitoringTable();
     }
 
-    // ----- RENDER MONITORING TABLE -----
     function renderMonitoringTable() {
       if (!monitoringTableContainer) return;
 
@@ -899,7 +906,6 @@
       monitoringTableContainer.innerHTML = html;
     }
 
-    // ----- CRUD & EDIT -----
     function deleteItem(catIndex, itemIndex) {
       if (!categories[catIndex]) return;
       categories[catIndex].items.splice(itemIndex, 1);
@@ -939,7 +945,6 @@
       categories[currentEditCatIndex].items[currentEditItemIndex].name = newName;
       categories[currentEditCatIndex].items[currentEditItemIndex].price = newPrice;
       categories[currentEditCatIndex].items[currentEditItemIndex].note = newNote;
-      // Pastikan terpakai tidak melebihi budget baru
       if (categories[currentEditCatIndex].items[currentEditItemIndex].terpakai > newPrice) {
         categories[currentEditCatIndex].items[currentEditItemIndex].terpakai = newPrice;
       }
@@ -947,7 +952,6 @@
       saveAndRender();
     });
 
-    // ----- RESET -----
     document.getElementById('resetToDefaultBtn').addEventListener('click', () => {
       if (confirm('Kembalikan semua item ke data awal? Semua perubahan (termasuk "terpakai") akan hilang.')) {
         categories = JSON.parse(JSON.stringify(initialCategories));
@@ -955,7 +959,6 @@
       }
     });
 
-    // ----- TAB SWITCHING -----
     const tabButtons = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
 
@@ -975,7 +978,6 @@
       });
     });
 
-    // ----- INIT -----
     function saveAndRender() {
       saveToLocalStorage();
       renderCategories();
